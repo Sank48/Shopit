@@ -1,0 +1,14 @@
+[
+	{
+		"name": "san disk ultra",
+		"price": 48.34,
+		"description": "pendrive",
+		"rating": 4.5,
+		"images": [],
+		"category": "Electronics",
+		"seller": "Ebay",
+		"stock": 50,
+		"numOfReviews": 32,
+		"reviews": []
+	}
+]
