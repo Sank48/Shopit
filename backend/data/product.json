@@ -10,5 +10,41 @@
 		"stock": 50,
 		"numOfReviews": 32,
 		"reviews": []
+	},
+	{
+		"name": "hp laptop",
+		"price": 50000,
+		"description": "Laptop",
+		"rating": 4.0,
+		"images": [],
+		"category": "Laptops",
+		"seller": "Ebay",
+		"stock": 40,
+		"numOfReviews": 20,
+		"reviews": []
+	},
+	{
+		"name": "hp monitor",
+		"price": 20000,
+		"description": "A Computer monitor",
+		"rating": 4.2,
+		"images": [],
+		"category": "Computers",
+		"seller": "Amazon",
+		"stock": 60,
+		"numOfReviews": 25,
+		"reviews": []
+	},
+	{
+		"name": "Winter Jacket",
+		"price": 10000,
+		"description": "A warm winter jacket",
+		"rating": 4.1,
+		"images": [],
+		"category": "Cloths",
+		"seller": "Flipkart",
+		"stock": 100,
+		"numOfReviews": 60,
+		"reviews": []
 	}
 ]
