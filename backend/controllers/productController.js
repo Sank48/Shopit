@@ -13,7 +13,7 @@ exports.newProduct = catchAsyncError(async (req, res, next)=>{
 })
 
 // Get all Products => api/v1/products
-exports.getProducts = async (req,res,next)=>{
+exports.getProducts = catchAsyncError( async (req,res,next)=>{
 	const product = await Product.find();
 	res.status(200).json({
 		success: true,
@@ -21,10 +21,10 @@ exports.getProducts = async (req,res,next)=>{
 		product
 		//message: 'This route will show all products in database.'
 	})
-}
+})
 
 // Get single product detail => api/v1/products/:id
-exports.getSingleProduct = async (req, res, next)=>{
+exports.getSingleProduct = catchAsyncError( async (req, res, next)=>{
 	const product = await Product.findById(req.params.id);
 
 	if(!product){
@@ -39,10 +39,10 @@ exports.getSingleProduct = async (req, res, next)=>{
 			product
 		})
 	}
-}
+})
 
 // Update product => admin/products/:id
-exports.updateProduct = async(req, res, next)=>{
+exports.updateProduct = catchAsyncError( async(req, res, next)=>{
 	let product = await Product.findById(req.params.id);
 
 	if(!product){
@@ -70,10 +70,10 @@ exports.updateProduct = async(req, res, next)=>{
 			product
 		})
 	}
-}
+})
 
 // Delete product => admin/products/:id
-exports.deleteProduct = async(req, res)=>{
+exports.deleteProduct = catchAsyncError( async(req, res)=>{
 	let product = await Product.findById(req.params.id);
 
 	if(!product){
@@ -88,4 +88,4 @@ exports.deleteProduct = async(req, res)=>{
 		success: true,
 		message: "Product deleted!"
 	})
-}
+})
