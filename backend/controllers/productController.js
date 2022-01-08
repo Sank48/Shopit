@@ -1,4 +1,5 @@
 const Product = require('../models/product')
+const error = require('../utils/errorHandler')
 
 // Create new product => /api/v1/products/new
 exports.newProduct = async (req, res, next)=>{
@@ -26,10 +27,11 @@ exports.getSingleProduct = async (req, res, next)=>{
 	const product = await Product.findById(req.params.id);
 
 	if(!product){
-		res.status(404).json({
-			success: false,
-			message: "No product found with given ID."
-		})
+		return next(new error("No product found with given ID"),404);
+		// res.status(404).json({
+		// 	success: false,
+		// 	message: "No product found with given ID."
+		// })
 	}else{
 		res.status(200).json({
 			success: true,
