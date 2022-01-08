@@ -15,9 +15,11 @@ module.exports = (err ,req, res, next)=>{
 	}
 
 	if(process.env.NODE_ENV==="PRODUCTION"){
-		res.json({
+		let error = {...err}
+		error.message = err.message
+		res.status(error.statusCode).json({
 			success: false,
-			message: err.message || "Internal Server Error"
+			message: error.message || "Internal Server Error"
 		})
 	}
 	
