@@ -46,10 +46,7 @@ exports.updateProduct = catchAsyncError( async(req, res, next)=>{
 	let product = await Product.findById(req.params.id);
 
 	if(!product){
-		res.status(404).json({
-			success: false,
-			message: "No product found with given ID."
-		})
+		return next(new error("No product found with given ID",404));
 	}else{
 		// One method
 		// Product.findByIdAndUpdate(req.params.id,{
@@ -73,14 +70,11 @@ exports.updateProduct = catchAsyncError( async(req, res, next)=>{
 })
 
 // Delete product => admin/products/:id
-exports.deleteProduct = catchAsyncError( async(req, res)=>{
+exports.deleteProduct = catchAsyncError( async(req, res, next)=>{
 	let product = await Product.findById(req.params.id);
 
 	if(!product){
-		res.status(404).json({
-			success: false,
-			message: "No proct found with give ID."
-		})
+		return next(new error("No product found with given ID",404));
 	}
 
 	await product.remove()
