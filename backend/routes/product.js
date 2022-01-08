@@ -7,8 +7,8 @@ const{ getProducts, newProduct, getSingleProduct, updateProduct } = require('../
 router.route('/products').get(getProducts);
 router.route('/products/:id').get(getSingleProduct);
 
-router.route('/product/new').post(newProduct);
-router.route('/products/:id').put(updateProduct);
+router.route('/admin/products/new').post(newProduct);
+router.route('/admin/products/:id').put(updateProduct);
 
 
 module.exports = router;
