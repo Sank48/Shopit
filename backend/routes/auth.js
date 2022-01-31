@@ -8,7 +8,8 @@ const {registerUser,
 		forgotPassword, 
 		resetPassword, 
 		getUserProfile,
-		updateProduct}=require('../controllers/authController');
+		updateProduct,
+		updateProfile}=require('../controllers/authController');
 
 router.route('/register').post(registerUser);
 router.route('/login').post(loginUser);
@@ -16,6 +17,7 @@ router.route('/password/forgot').post(forgotPassword)
 
 router.route('/password/reset/:token').put(resetPassword)
 router.route('/password/update').put(isAuthenticatedUser, updateProduct)
+router.route('/me/update').put(isAuthenticatedUser, updateProfile)
 
 router.route('/me').get(isAuthenticatedUser, getUserProfile);
 router.route('/logout').get(logout);
