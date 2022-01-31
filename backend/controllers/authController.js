@@ -129,6 +129,23 @@ exports.getUserProfile = catchAsyncError(async (req, res, next)=>{
 	})
 })
 
+// Update Password => /api/v1/password/update
+exports.updateProduct = catchAsyncError(async(req, res, next)=>{
+	const user = await User.findById(req.user.id).select("+password");
+
+	// Check old password
+	const isMatched = await user.comparePassword(req.body.oldPassword);
+	if(!isMatched){
+		return next(new ErrorHandler("Old Password is incorrect!",404));
+	}
+
+	user.password = req.body.password;
+	await user.save();
+
+	sendToken(user, 200, res);
+
+})
+
 // Logout user => /api/v1/logout
 exports.logout = catchAsyncError( async (req, res, next)=>{
 	res.cookie('token', null, {
