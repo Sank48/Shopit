@@ -178,3 +178,14 @@ exports.logout = catchAsyncError( async (req, res, next)=>{
 		message: "Logged out"
 	})
 })
+
+
+// Get all users => /api/v1/admin/users
+exports.allUsers = catchAsyncError(async(req, res, next)=>{
+	const users = await User.find();
+
+	res.status(200).json({
+		success: true,
+		users
+	})
+})
