@@ -11,7 +11,9 @@ const {registerUser,
 		updateProduct,
 		updateProfile,
 		allUsers,
-		getUserDetails}=require('../controllers/authController');
+		getUserDetails,
+		updateUser,
+		deleteUser}=require('../controllers/authController');
 
 router.route('/register').post(registerUser);
 router.route('/login').post(loginUser);
@@ -25,6 +27,9 @@ router.route('/me').get(isAuthenticatedUser, getUserProfile);
 router.route('/logout').get(logout);
 
 router.route('/admin/users').get(isAuthenticatedUser, authorizeRoles('admin'), allUsers);
-router.route('/admin/user/:id').get(isAuthenticatedUser, authorizeRoles('admin'), getUserDetails);
+router.route('/admin/user/:id')
+	.get(isAuthenticatedUser, authorizeRoles('admin'), getUserDetails)
+	.put(isAuthenticatedUser, authorizeRoles('admin'), updateUser)
+	.delete(isAuthenticatedUser, authorizeRoles('admin'), deleteUser)
 
 module.exports=router;
