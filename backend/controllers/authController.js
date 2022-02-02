@@ -231,6 +231,8 @@ exports.deleteUser = catchAsyncError(async (req,res,next)=>{
 		return next(new ErrorHandler(`User doesn't exist with the id: ${req.params.id}`));
 	}
 
+	// remove avatar from cloudinary :TODO
+
 	await user.remove();
 
 	res.status(200).json({
