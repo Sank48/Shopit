@@ -56,3 +56,19 @@ exports.myOrder = catchAsyncError(async(req, res, next)=>{
 		order
 	})
 })
+
+// Get all orders 'admin' => /api/vq/admin/orders/
+exports.allOrders = catchAsyncError(async(req, res, next)=>{
+	const order = await Order.find()
+
+	let totalAmt = 0;
+	order.forEach(order =>{
+		totalAmt+=order.totalPrice;
+	})
+
+	res.status(200).json({
+		success: true,
+		TotalAmount: totalAmt,
+		order
+	})
+})
