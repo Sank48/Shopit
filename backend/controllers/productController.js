@@ -95,3 +95,49 @@ exports.deleteProduct = catchAsyncError( async(req, res, next)=>{
 		message: "Product deleted!"
 	})
 })
+
+// Create new review/Update old review => /api/v1/review
+exports.createProductReview = catchAsyncError(async(req, res, next)=>{
+	const {rating, comment, productId} = req.body;
+
+	const review = {
+		user: req.user._id,
+		name: req.user.name,
+		rating: Number(rating),
+		comment
+	}
+
+	const product = await Product.findById(productId);
+
+	// console.log(product.reviews);
+
+	const isReviewed = product.review.find(
+		// if any review user matches with current user then it means
+		// that we have to update the old review otherwise create a
+		// new review
+		r => r.user.toString() === req.user._id.toString()
+	)
+
+	// if reviewed then update it
+	if(isReviewed){
+		product.review.forEach(review=>{
+			if(review.user.toString() === req.user._id.toString()){
+				review.comment = comment;
+				review.rating = rating;
+			}
+		})
+	}else{// otherwise create a new review
+		product.review.push(review);
+		product.numOfReviews = product.review.length
+	}
+
+	// array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+	// reduce method executes the callback function on the whole array and returns a single result
+	product.rating = product.review.reduce((acc, item)=> item.rating+acc, 0)/product.review.length;
+
+	await product.save({validateBeforeSave: false});
+
+	res.status(200).json({
+		success: true
+	})
+})
